@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Models\Article;
@@ -22,6 +23,10 @@ class ArticleController extends Controller
      *                 @OA\Property(property="title", type="string")
      *             )
      *         )
+     *     ),
+     *     @OA\Response(
+     *         response=500,
+     *         description="Erro no servidor"
      *     )
      * )
      */

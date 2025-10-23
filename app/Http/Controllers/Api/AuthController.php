@@ -1,4 +1,5 @@
 <?php
+// ...existing code...
 
 namespace App\Http\Controllers\Api;
 
@@ -14,6 +15,8 @@ class AuthController extends Controller
     /**
      * @OA\Post(
      *     path="/api/register",
+     *     operationId="authRegister",
+     *     tags={"Auth"},
      *     summary="Registra um novo usuário",
      *     @OA\RequestBody(
      *         required=true,
@@ -41,8 +44,8 @@ class AuthController extends Controller
     public function register(Request $request)
     {
         $data = $request->validate([
-            'name'     => ['required','string','max:100'],
-            'email'    => ['required','email','max:150','unique:users,email'],
+            'name'     => ['required', 'string', 'max:100'],
+            'email'    => ['required', 'email', 'max:150', 'unique:users,email'],
             'password' => ['required', Password::min(6), 'confirmed'],
         ]);
 
@@ -60,6 +63,8 @@ class AuthController extends Controller
     /**
      * @OA\Post(
      *     path="/api/login",
+     *     operationId="authLogin",
+     *     tags={"Auth"},
      *     summary="Faz o login do usuário e retorna o token JWT",
      *     @OA\RequestBody(
      *         required=true,
@@ -86,8 +91,8 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $data = $request->validate([
-            'email'    => ['required','email'],
-            'password' => ['required','string'],
+            'email'    => ['required', 'email'],
+            'password' => ['required', 'string'],
         ]);
 
         $user = User::where('email', $data['email'])->first();
@@ -102,6 +107,8 @@ class AuthController extends Controller
     /**
      * @OA\Post(
      *     path="/api/logout",
+     *     operationId="authLogout",
+     *     tags={"Auth"},
      *     summary="Realiza o logout e invalida o token JWT",
      *     @OA\Response(
      *         response=204,
