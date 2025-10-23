@@ -10,4 +10,18 @@ export default defineConfig({
         }),
         tailwindcss(),
     ],
+    build: {
+        manifest: true,
+        outDir: 'public/build',
+        // 👇 Adicione esta linha para corrigir a localização do manifesto:
+        rollupOptions: {
+            output: {
+                // Garante que o manifest.json vá direto pra build/
+                entryFileNames: 'assets/[name]-[hash].js',
+                chunkFileNames: 'assets/[name]-[hash].js',
+                assetFileNames: 'assets/[name]-[hash][extname]',
+            },
+        },
+        emptyOutDir: true,
+    },
 });
